@@ -19,6 +19,23 @@
 body {
   margin: 0;
   min-height: 100vh;
+
+/* Character card under each board */
+.character-card {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+.character-card img {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+@media (max-width: 720px) {
+  .character-card img { width: 56px; height: 56px; }
+}
   display: flex;
   align-items: center;
   justify-content: center;
