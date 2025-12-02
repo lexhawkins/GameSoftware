@@ -238,6 +238,37 @@ h1 {
   box-shadow: 0 6px 18px rgba(46, 163, 255, 0.35);
 }
 
+/* Start (Iniciar) button: green and floating animation to attract clicks */
+#begin-btn {
+  background: linear-gradient(135deg, #3ddc84, #1fa65a);
+  color: #04210d;
+  box-shadow: 0 8px 20px rgba(31, 166, 90, 0.22);
+  animation: float 1.6s ease-in-out infinite;
+}
+
+#begin-btn:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(31, 166, 90, 0.3);
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #begin-btn {
+    animation: none;
+  }
+}
+
 @media (max-width: 520px) {
   .top {
     flex-direction: column;
