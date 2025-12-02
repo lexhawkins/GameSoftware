@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Battleship 6x6</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="top">
+        <div>
+          <h1>Battleship 6x6</h1>
+          <p class="subtitle">Haz clic en una celda para disparar.</p>
+        </div>
+        <div class="legend">
+          <span><span class="chip chip-empty"></span> Agua</span>
+          <span><span class="chip chip-hit"></span> Tocado</span>
+          <span><span class="chip chip-miss"></span> Fallo</span>
+          <span><span class="chip chip-ship"></span> Barco (revelado)</span>
+        </div>
+      </header>
+
+      <section class="board" id="board"></section>
+
+      <div class="status-bar" id="status">Dispara sobre el tablero.</div>
+
+      <div class="actions">
+        <button id="reveal-btn">Revelar barcos</button>
+        <button id="reset-btn">Reiniciar</button>
+      </div>
+    </div>
+
+    <script src="/eel.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
