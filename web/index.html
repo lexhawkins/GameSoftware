@@ -42,9 +42,15 @@
         <div class="placement">
           <div>Colocar barco: <strong id="ship-size">-</strong></div>
           <div class="orientation">
-            Orientacion:
-            <label><input type="radio" name="orientation" value="H" checked> Horizontal</label>
-            <label><input type="radio" name="orientation" value="V"> Vertical</label>
+            <div class="orientation-title">Orientacion:</div>
+            <label class="orientation-row">
+              <span>Horizontal</span>
+              <input type="radio" name="orientation" value="H" checked />
+            </label>
+            <label class="orientation-row">
+              <span>Vertical</span>
+              <input type="radio" name="orientation" value="V" />
+            </label>
           </div>
           <div class="hint">Haz clic en tu tablero para colocar el barco.</div>
         </div>
@@ -53,6 +59,7 @@
           <div class="status-bar" id="status">Esperando accion...</div>
           <div class="actions">
             <button id="start-btn">Nueva Partida</button>
+            <button id="begin-btn">Iniciar</button>
             <button id="reveal-btn">Revelar</button>
             <button id="reset-btn">Reiniciar</button>
           </div>

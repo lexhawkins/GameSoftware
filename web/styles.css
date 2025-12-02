@@ -119,6 +119,7 @@ h1 {
   font-weight: 600;
   cursor: pointer;
   transition: transform 0.12s ease, background 0.2s ease, border-color 0.2s ease;
+  position: relative;
 }
 
 .cell:disabled {
@@ -155,6 +156,54 @@ h1 {
   background: rgba(242, 193, 78, 0.12);
   border-color: var(--ship);
   color: var(--ship);
+}
+.cell.ship-player,
+.cell.ship-bot {
+  background: #0e2436;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+.cell.ship-player::after,
+.cell.ship-bot::after {
+  content: "";
+  display: block;
+  width: 70%;
+  height: 24%;
+  border-radius: 999px;
+  position: absolute;
+  top: 38%;
+  left: 15%;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.35);
+}
+.cell.ship-player::after {
+  background:
+    radial-gradient(circle at 25% 50%, rgba(255,255,255,0.22) 0 16%, transparent 18%),
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.18) 0 16%, transparent 18%),
+    radial-gradient(circle at 75% 50%, rgba(255,255,255,0.18) 0 16%, transparent 18%),
+    linear-gradient(135deg, #3fb3ff, #1e7bd8);
+}
+.cell.ship-bot::after {
+  background:
+    radial-gradient(circle at 25% 50%, rgba(255,255,255,0.22) 0 16%, transparent 18%),
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.18) 0 16%, transparent 18%),
+    radial-gradient(circle at 75% 50%, rgba(255,255,255,0.18) 0 16%, transparent 18%),
+    linear-gradient(135deg, #ff6b6b, #d92525);
+}
+.cell.ship-player::before,
+.cell.ship-bot::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  right: 12%;
+  top: 36%;
+}
+.cell.ship-player::before {
+  border-left: 16px solid #1e7bd8;
+}
+.cell.ship-bot::before {
+  border-left: 16px solid #d92525;
 }
 
 .status-bar {
@@ -225,6 +274,26 @@ h1 {
   padding: 16px;
   border-radius: 12px;
   border: 1px solid rgba(255,255,255,0.03);
+}
+.orientation {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+.orientation-title {
+  color: var(--text);
+}
+.orientation-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+  font-weight: 600;
+}
+.orientation-row input {
+  margin: 0;
 }
 .status-actions {
   flex: 2;

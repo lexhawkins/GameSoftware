@@ -6,6 +6,7 @@ const statusEl = document.getElementById("status");
 const revealBtn = document.getElementById("reveal-btn");
 const resetBtn = document.getElementById("reset-btn");
 const startBtn = document.getElementById("start-btn");
+const beginBtn = document.getElementById("begin-btn");
 const shipSizeEl = document.getElementById("ship-size");
 
 let playerCells = [];
@@ -51,8 +52,25 @@ function buildBoards() {
 
 function clearCellClasses() {
   [playerCells, botCells].forEach(grid => {
-    grid.forEach(row => row.forEach(btn => btn.className = 'cell'));
+    grid.forEach(row => row.forEach(btn => {
+      btn.className = 'cell';
+      btn.textContent = '';
+    }));
   });
+}
+
+function setCellState(btn, symbol, isPlayer) {
+  btn.className = 'cell';
+  btn.textContent = '';
+  if (symbol === 'X') {
+    btn.classList.add('hit');
+    btn.textContent = '✕';
+  } else if (symbol === 'o') {
+    btn.classList.add('miss');
+    btn.textContent = '•';
+  } else if (symbol === 'S') {
+    btn.classList.add(isPlayer ? 'ship-player' : 'ship-bot');
+  }
 }
 
 function updateBoards() {
@@ -60,24 +78,18 @@ function updateBoards() {
   clearCellClasses();
   const p = state.player_board;
   const b = state.bot_board;
+  const shipCount = state.ship_sizes ? state.ship_sizes.length : 0;
+  const placedAll = shipCount > 0 && state.next_ship_idx >= shipCount;
 
   for (let r = 0; r < GRID_SIZE; r++) {
     for (let c = 0; c < GRID_SIZE; c++) {
       const pb = playerCells[r][c];
       const symbolP = p[r][c];
-      pb.textContent = symbolP;
-      pb.classList.remove("hit", "miss", "ship");
-      if (symbolP === "X") pb.classList.add("hit");
-      if (symbolP === "o") pb.classList.add("miss");
-      if (symbolP === "S") pb.classList.add("ship");
+      setCellState(pb, symbolP, true);
 
       const bb = botCells[r][c];
       const symbolB = b[r][c];
-      bb.textContent = symbolB;
-      bb.classList.remove("hit", "miss", "ship");
-      if (symbolB === "X") bb.classList.add("hit");
-      if (symbolB === "o") bb.classList.add("miss");
-      if (symbolB === "S") bb.classList.add("ship");
+      setCellState(bb, symbolB, false);
     }
   }
 
@@ -86,12 +98,21 @@ function updateBoards() {
     const idx = state.next_ship_idx || 0;
     const sizes = state.ship_sizes || [];
     shipSizeEl.textContent = sizes[idx] || '-';
-    statusEl.textContent = 'Coloca tus naves: haz clic en tu tablero.';
+    statusEl.textContent = placedAll
+      ? 'Barcos listos. Pulsa Iniciar para jugar.'
+      : 'Coloca tus naves: haz clic en tu tablero.';
   } else if (state.phase === 'playing') {
     shipSizeEl.textContent = '-';
     statusEl.textContent = 'Turno de disparo: haz clic en el tablero del bot.';
   } else if (state.phase === 'over') {
-    statusEl.textContent = 'Juego terminado.';
+    statusEl.textContent = state.message || 'Juego terminado.';
+  }
+
+  // controles
+  startBtn.disabled = false;
+  beginBtn.disabled = !(state.phase === 'placement' && placedAll);
+  if (state.phase === 'playing' || state.phase === 'over') {
+    beginBtn.disabled = true;
   }
 }
 
@@ -166,6 +187,13 @@ startBtn.addEventListener('click', async () => {
   const res = await eel.start_new_game()();
   state = res;
   statusEl.textContent = 'Nueva partida iniciada. Coloca tus barcos.';
+  updateBoards();
+});
+
+beginBtn.addEventListener('click', async () => {
+  const res = await eel.start_battle()();
+  state = res;
+  statusEl.textContent = res.message || 'Batalla iniciada.';
   updateBoards();
 });
 
