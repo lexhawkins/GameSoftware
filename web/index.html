@@ -11,7 +11,7 @@
       <header class="top">
         <div>
           <h1>Battleship 6x6</h1>
-          <p class="subtitle">Haz clic en una celda para disparar.</p>
+          <p class="subtitle">Coloca tus naves y enfrenta a Evil Gari.</p>
         </div>
         <div class="legend">
           <span><span class="chip chip-empty"></span> Agua</span>
@@ -21,13 +21,36 @@
         </div>
       </header>
 
-      <section class="board" id="board"></section>
+      <div class="game-row">
+        <div class="panel">
+          <h3>Tú</h3>
+          <div class="board" id="player-board"></div>
+        </div>
+        <div class="panel">
+          <h3>Bot (Evil Gari)</h3>
+          <div class="board" id="bot-board"></div>
+        </div>
+      </div>
 
-      <div class="status-bar" id="status">Dispara sobre el tablero.</div>
+      <div class="controls">
+        <div class="placement">
+          <div>Colocar barco: <strong id="ship-size">-</strong></div>
+          <div>
+            Orientación:
+            <label><input type="radio" name="orientation" value="H" checked> Horizontal</label>
+            <label><input type="radio" name="orientation" value="V"> Vertical</label>
+          </div>
+          <div class="hint">Haz clic en tu tablero para colocar el barco.</div>
+        </div>
 
-      <div class="actions">
-        <button id="reveal-btn">Revelar barcos</button>
-        <button id="reset-btn">Reiniciar</button>
+        <div class="status-actions">
+          <div class="status-bar" id="status">Esperando acción...</div>
+          <div class="actions">
+            <button id="start-btn">Nueva Partida</button>
+            <button id="reveal-btn">Revelar</button>
+            <button id="reset-btn">Reiniciar</button>
+          </div>
+        </div>
       </div>
     </div>
 
